@@ -1,4 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    // domains: ["ppi-test.canopi.in"],
+
+    // production URL
+    domains: ["fakestoreapi.com"],
+  },
+};
 
 export default nextConfig;

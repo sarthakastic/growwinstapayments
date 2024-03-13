@@ -9,7 +9,7 @@ interface ProductStore {
   getProducts: () => Promise<void>;
 }
 
-const useStore = create<ProductStore>()((...a) => ({
+const useStore = create<any>()((...a) => ({
   ...getProductSlice(...a),
 }));
 

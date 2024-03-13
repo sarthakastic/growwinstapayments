@@ -1,14 +1,32 @@
 import { StateCreator } from "zustand";
 
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+  quantity: number;
+}
+
+interface PaymentMethods {
+  paymentMethods: string;
+}
+
 interface ProductStore {
-  data: Record<string, any>;
+  totalPrice: number;
+  paymentMethods: PaymentMethods[];
+  products: Product[];
   loading: boolean;
   error: string | null;
   getProducts: () => Promise<void>;
+  incrementQuantity: (productId: number) => void;
+  decrementQuantity: (productId: number) => void;
 }
 
 const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
-  data: {},
+  totalPrice: 0,
+  paymentMethods: [],
+  products: [],
   loading: false,
   error: null,
   getProducts: async () => {
@@ -25,12 +43,48 @@ const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
 
       const responseData = await response.json();
 
-      set(() => ({ data: responseData, loading: false }));
+      // Assuming the response structure matches the provided example
+      set(() => ({
+        products: responseData.products.map((product: Product) => ({
+          ...product,
+          // Add initialQuantity to track the original quantity
+          initialQuantity: product.quantity,
+        })),
+        paymentMethods: responseData.paymentMethods,
+        loading: false,
+      }));
     } catch (error) {
       console.error("Error fetching data:", error);
 
       set(() => ({ error: "Error fetching data", loading: false }));
     }
+  },
+  incrementQuantity: (productId: number) => {
+    set((state) => ({
+      products: state.products.map((product) =>
+        product.id === productId
+          ? { ...product, quantity: product.quantity + 1 }
+          : product
+      ),
+    }));
+  },
+  decrementQuantity: (productId: number) => {
+    set((state) => ({
+      products: state.products.map((product) =>
+        product.id === productId && product.quantity > 0
+          ? { ...product, quantity: product.quantity - 1 }
+          : product
+      ),
+    }));
+  },
+  getTotalPrice: () => {
+    const { products } = get();
+
+    set(() => ({
+      totalPrice: products.reduce((total, product) => {
+        return total + product.price * product.quantity;
+      }, 0),
+    }));
   },
 });
 
