@@ -1,10 +1,13 @@
 "use client";
 
 import useStore from "@/store/store";
+import { MinusCircle, PlusCircle } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 const ProductCard = () => {
+  const router = useRouter();
   const products = useStore((state) => state.products);
   const tp = useStore((state) => state.totalPrice);
   const incrementQuantity = useStore((state) => state.incrementQuantity);
@@ -20,43 +23,65 @@ const ProductCard = () => {
   return (
     <div>
       {products.map((product: any) => (
-        <div key={product.id} className="flex bg-white">
-          <Image
-            src={product.image}
-            alt={product.title}
-            width={200}
-            height={100}
-          />
+        <div
+          key={product.id}
+          className="flex flex-1 justify-between gap-2 p-5 border bg-white"
+        >
           <div>
-            <p className="text-blue-500">{product.title}</p>
-            <p className="text-yellow-500">{product.price}</p>
-            <div className="flex">
+            <Image
+              className="h-28 w-40 border p-2  "
+              src={product.image}
+              alt={product.title}
+              width={200}
+              height={10}
+            />
+          </div>
+          <div className="bg-red-500">
+            <p className="text-black">{product.title}</p>
+            <p className="text-black/50">
+              {" "}
+              <span className="font-semibold"> Price :</span>
+              {product.price}
+            </p>
+          </div>
+          <div>
+            <div className="flex gap-5">
+              <p className="text-black">Quantity</p>
               <button
-                className="bg-black"
+                className="text-black"
                 onClick={() => {
                   decrementQuantity(product.id);
                   totalPrice();
                 }}
               >
-                -
+                <MinusCircle />
               </button>
               <p className="text-purple-500">{product.quantity}</p>
               <button
-                className="bg-black"
+                className="text-black "
                 onClick={() => {
                   incrementQuantity(product.id);
                   totalPrice();
                 }}
               >
-                +
+                <PlusCircle />
               </button>
             </div>
+
             <p className="bg-red-100 text-amber-900 ">
               {product.quantity * product.price}
             </p>
           </div>
         </div>
       ))}
+      <p
+        className="text-purple-600"
+        onClick={() => {
+          router.push("/payment");
+        }}
+      >
+        Make Payment {tp}
+      </p>
     </div>
   );
 };

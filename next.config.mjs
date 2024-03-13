@@ -4,7 +4,7 @@ const nextConfig = {
     // domains: ["ppi-test.canopi.in"],
 
     // production URL
-    domains: ["fakestoreapi.com"],
+    domains: ["fakestoreapi.com", "groww.in"],
   },
 };
 
