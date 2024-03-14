@@ -10,14 +10,14 @@ const Header = ({
   previousUrl: string;
 }) => {
   return (
-    <div className="bg-white flex mt-10  p-2 border-b items-center ">
+    <div className="flex mt-10  p-2 border-b border-primary items-center ">
       <Link
-        className="text-black w-fit border flex items-center p-1  justify-between "
+        className="text-primary w-fit border border-primary flex items-center p-1  justify-between "
         href={previousUrl}
       >
         <ArrowLeft />
       </Link>
-      <h4 className="w-full text-center font-bold text-black text-xl">
+      <h4 className="w-full text-center font-bold text-primary text-xl">
         {heading}
       </h4>
     </div>

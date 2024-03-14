@@ -40,12 +40,12 @@ const PhoneNumber = () => {
   return (
     <>
       <form
-        className="flex border p-1 gap-2 my-5"
+        className="flex border p-1 gap-2 my-5 "
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Phone />
+        <Phone className="" />
         <input
-          className="w-full focus:outline-none text-black "
+          className="w-full focus:outline-none  "
           {...register("phone")}
           maxLength={10}
           defaultValue={phone}
@@ -66,7 +66,11 @@ const PhoneNumber = () => {
             <Trash className="border p-1" onClick={deletePhone} />
           </div>
         ) : (
-          <input type="submit" value={"Submit"} />
+          <input
+            className="text-primary font-semibold hover:cursor-pointer"
+            type="submit"
+            value={"Submit"}
+          />
         )}
       </form>
       {errors.phone && (

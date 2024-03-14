@@ -81,17 +81,17 @@ const ProductCard = () => {
           </div>
         </div>
       ))}
-      <p
-        className="text-purple-600"
-        onClick={() => {
-          router.push("/payment");
-        }}
-      >
-        Make Payment {tp}
-      </p>
     </div>
   ) : (
-    <div onClick={() => location.reload()}>No product</div>
+    <div className="w-full h-full p-10 text-primary font-bold bg-primaryForeground flex flex-col justify-center items-center ">
+      <p>Looks Like your cart is empty</p>
+      <button
+        className="border border-primary p-2"
+        onClick={() => location.reload()}
+      >
+        Start Shopping
+      </button>
+    </div>
   );
 };
 

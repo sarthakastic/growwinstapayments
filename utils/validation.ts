@@ -3,7 +3,7 @@ import { z } from "zod";
 export const PromoCodeSchema = z.object({
   promocode: z
     .string()
-    .min(8, { message: "Promocode must be of minimum 1 letter" }),
+    .min(8, { message: "Promocode must be of minimum 8 letter" }),
 });
 
 export const AddressSchema = z.object({
@@ -28,4 +28,16 @@ const PhoneSchema = z
 
 export const PhoneNumberSchema = z.object({
   phone: PhoneSchema,
+});
+
+export const PaymentCardSchema = z.object({
+  cvv: z.string(),
+  cardNumber: z.string(),
+  date: z.string(),
+});
+
+export const UpiIdSchema = z.object({
+  upiId: z.string().refine((val) => val.includes("@"), {
+    message: "Invalid UPI ID",
+  }),
 });

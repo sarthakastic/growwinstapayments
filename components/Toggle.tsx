@@ -10,27 +10,14 @@ export function ModeToggle() {
   const handleTheme = () => {
     if (theme === "light") {
       setTheme("dark");
-    } else {
-      setTheme("light");
-      console.log(theme);
-    }
+    } else setTheme("light");
   };
 
-  React.useEffect(() => {}, [theme]);
-
   return (
-    <div
-      onClick={() => handleTheme()}
-      className="fixed z-30 top-5 right-5 font-extrabold bg-blue-400"
-    >
-      <div>
-        {/* <DropdownMenuTrigger asChild> */}
-        <button className="bg-yellow-500 dark:bg-red-900 hover:bg-foreground">
-          <Sun className="h-[1.5rem] w-[1.5rem]  bg-primaryLight rotate-0 scale-100 text-secondaryLight transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 text-secondaryLight scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </button>
-      </div>
-    </div>
+    <button type="button" onClick={handleTheme}>
+      <Sun className="border border-primary p-1 absolute h-[2rem] w-[2rem]  bg-foreground rotate-0 scale-100 text-primary transition-all dark:-rotate-90 dark:scale-0" />
+      <Moon className="border border-primary p-1 absolute h-[2rem] w-[2rem] rotate-90 text-primary scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      <span className="sr-only">Toggle theme</span>
+    </button>
   );
 }

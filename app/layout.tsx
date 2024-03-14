@@ -4,8 +4,9 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import GetProductsWrapper from "@/wrappers/GetProductsWrapper";
 import Theme from "@/wrappers/GetThemeWrapper";
-import { ModeToggle } from "@/components/Toggle";
 import { ThemeProvider } from "@/wrappers/ThemeProvider";
+import Routeguard from "@/wrappers/RouteGuardWrapper";
+import Toaster from "@/components/Toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,13 +23,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider>
-          <GetProductsWrapper>
-            <ModeToggle />
-            <Navbar />
-            <Theme />
-            {children}
-          </GetProductsWrapper>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Routeguard>
+            <GetProductsWrapper>
+              <Navbar />
+              <Theme />
+              <Toaster />
+              {children}
+            </GetProductsWrapper>
+          </Routeguard>
         </ThemeProvider>
       </body>
     </html>

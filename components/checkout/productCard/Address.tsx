@@ -78,7 +78,7 @@ const Address = () => {
     <>
       <form className=" border p-1 my-5" onSubmit={handleSubmit(onSubmit)}>
         <input
-          className="w-full text-black my-1 focus:outline-none"
+          className="w-full  my-1 focus:outline-none"
           {...register("addressLine1")}
           defaultValue={houseNumber}
           type="text"
@@ -95,7 +95,7 @@ const Address = () => {
           <div className="text-red-500">{errors.addressLine1.message}</div>
         )}
         <input
-          className="w-full text-black my-1 focus:outline-none"
+          className="w-full  my-1 focus:outline-none"
           {...register("addressLine2")}
           defaultValue={landmark}
           type="text"
@@ -112,7 +112,7 @@ const Address = () => {
           <div className="text-red-500">{errors.addressLine2.message}</div>
         )}
         <input
-          className="w-full text-black my-1 focus:outline-none"
+          className="w-full  my-1 focus:outline-none"
           {...register("city")}
           defaultValue={city}
           type="text"
@@ -129,7 +129,7 @@ const Address = () => {
           <div className="text-red-500">{errors.city.message}</div>
         )}
         <input
-          className="w-full text-black my-1 focus:outline-none"
+          className="w-full  my-1 focus:outline-none"
           {...register("state")}
           defaultValue={state}
           type="text"
@@ -146,7 +146,7 @@ const Address = () => {
           <div className="text-red-500">{errors.state.message}</div>
         )}
         <input
-          className="w-full text-black my-1 focus:outline-none"
+          className="w-full  my-1 focus:outline-none"
           {...register("pincode")}
           defaultValue={pincode}
           maxLength={6}
