@@ -76,7 +76,10 @@ const Address = () => {
 
   return (
     <>
-      <form className=" border p-1 my-5" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className=" border border-primary p-1 my-5"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <input
           className="w-full  my-1 focus:outline-none"
           {...register("addressLine1")}
@@ -166,13 +169,17 @@ const Address = () => {
         )}
         {city ? (
           pathname === "/checkout" && (
-            <div className="flex">
-              <Pen className="border p-1" />
-              <Trash className="border p-1" onClick={deleteAddress} />
-            </div>
+            <Trash
+              className="border p-1 text-red-500 border-red-500"
+              onClick={deleteAddress}
+            />
           )
         ) : (
-          <input type="submit" value={"Submit"} />
+          <input
+            className="text-primary font-semibold hover:cursor-pointer"
+            type="submit"
+            value={"Save"}
+          />
         )}
       </form>
     </>

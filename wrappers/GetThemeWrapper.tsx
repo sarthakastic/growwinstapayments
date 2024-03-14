@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
-const Theme = () => {
+const GetThemeWrapper = ({ children }: { children: ReactNode }) => {
   const [foreground, setForeground] = useState<any>();
 
   async function fetchThemeData() {
@@ -73,8 +73,9 @@ const Theme = () => {
                            }`,
         }}
       />
+      {children}
     </section>
   );
 };
 
-export default Theme;
+export default GetThemeWrapper;

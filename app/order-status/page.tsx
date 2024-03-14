@@ -17,7 +17,7 @@ const OrderStatus = async () => {
   const date = await getTodayDate();
 
   return (
-    <div className=" ">
+    <div className=" px-2 md:mx-52 md:px-8  border my-10">
       <Header previousUrl="/payment" heading="Order Status" />
       <ProductCard />
       <Address />

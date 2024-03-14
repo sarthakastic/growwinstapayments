@@ -5,7 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { PhoneNumberSchema } from "@/utils/validation";
-import { Pen, Phone, Trash } from "lucide-react";
+import { Phone, Trash } from "lucide-react";
 import { saveToLocalStorage } from "@/utils/saveDataToLocalStorage";
 
 type PhoneNumberFields = z.infer<typeof PhoneNumberSchema>;
@@ -40,7 +40,7 @@ const PhoneNumber = () => {
   return (
     <>
       <form
-        className="flex border p-1 gap-2 my-5 "
+        className="flex border p-1 gap-2 my-5 border-primary "
         onSubmit={handleSubmit(onSubmit)}
       >
         <Phone className="" />
@@ -61,15 +61,15 @@ const PhoneNumber = () => {
           placeholder="Enter Phone Number"
         />
         {phone ? (
-          <div className="flex">
-            <Pen className="border p-1" />
-            <Trash className="border p-1" onClick={deletePhone} />
-          </div>
+          <Trash
+            className="border p-1 text-red-500 border-red-500"
+            onClick={deletePhone}
+          />
         ) : (
           <input
             className="text-primary font-semibold hover:cursor-pointer"
             type="submit"
-            value={"Submit"}
+            value={"Save"}
           />
         )}
       </form>

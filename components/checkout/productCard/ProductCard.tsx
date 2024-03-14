@@ -39,45 +39,47 @@ const ProductCard = () => {
               height={10}
             />
           </div>
-          <div className="flex flex-col items-start ml-10  w-5/6 ">
-            <p className="text-black">{product.title}</p>
-            <p className="text-black/50">
-              {" "}
-              <span className="font-semibold"> Price :</span>
-              {product.price}
-            </p>
-          </div>
-          <div className="flex flex-col justify-between gap-2">
-            <div className="flex gap-5">
-              <p className="text-black">Quantity</p>
-              {pathname === "/checkout" && (
-                <button
-                  className="text-black"
-                  onClick={() => {
-                    decrementQuantity(product.id);
-                    totalPrice();
-                  }}
-                >
-                  <MinusCircle />
-                </button>
-              )}
-              <p className="text-black">{product.quantity}</p>
-              {pathname === "/checkout" && (
-                <button
-                  className="text-black "
-                  onClick={() => {
-                    incrementQuantity(product.id);
-                    totalPrice();
-                  }}
-                >
-                  <PlusCircle />
-                </button>
-              )}
+          <div className="lg:flex w-full justify-around gap-5 items-center ">
+            <div className="flex flex-col items-start  ">
+              <p className="text-black">{product.title}</p>
+              <p className="text-black/50">
+                {" "}
+                <span className="font-semibold"> Price :</span>
+                {product.price}
+              </p>
             </div>
+            <div className="flex flex-col justify-between gap-2 my-5 lg:my-0 ">
+              <div className="flex gap-5">
+                <p className="text-black">Quantity</p>
+                {pathname === "/checkout" && (
+                  <button
+                    className="text-black"
+                    onClick={() => {
+                      decrementQuantity(product.id);
+                      totalPrice();
+                    }}
+                  >
+                    <MinusCircle />
+                  </button>
+                )}
+                <p className="text-black">{product.quantity}</p>
+                {pathname === "/checkout" && (
+                  <button
+                    className="text-black "
+                    onClick={() => {
+                      incrementQuantity(product.id);
+                      totalPrice();
+                    }}
+                  >
+                    <PlusCircle />
+                  </button>
+                )}
+              </div>
 
-            <p className=" text-black ">
-              Amount: {(product.quantity * product.price).toFixed(2)}
-            </p>
+              <p className=" text-black ">
+                Amount: {(product.quantity * product.price).toFixed(2)}
+              </p>
+            </div>
           </div>
         </div>
       ))}
