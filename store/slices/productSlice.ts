@@ -27,7 +27,7 @@ const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
   totalPrice: 0,
   paymentMethods: [],
   products: [],
-  loading: false,
+  loading: true,
   error: null,
   getProducts: async () => {
     try {

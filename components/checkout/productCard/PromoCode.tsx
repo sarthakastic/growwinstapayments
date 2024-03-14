@@ -21,9 +21,12 @@ const PromoCode = () => {
   };
 
   return (
-    <>
+    <div className="my-5">
       <h4>Promo Code</h4>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="flex border p-1 gap-2 "
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <input
           className="w-full text-blue-400 focus:outline-none"
           {...register("promocode")}
@@ -37,12 +40,12 @@ const PromoCode = () => {
             input.value = value; // Update the input value
           }}
         />
-        {errors.promocode && (
-          <div className="text-red-500">{errors.promocode.message}</div>
-        )}
         <input type="submit" value={"Apply"} />
       </form>
-    </>
+      {errors.promocode && (
+        <div className="text-red-500">{errors.promocode.message}</div>
+      )}
+    </div>
   );
 };
 

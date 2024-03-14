@@ -3,12 +3,15 @@
 import useStore from "@/store/store";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 const ProductCard = () => {
   const router = useRouter();
+  const pathname = usePathname();
+  console.log({ pathname });
   const products = useStore((state) => state.products);
+  const loading = useStore((state) => state.loading);
   const tp = useStore((state) => state.totalPrice);
   const incrementQuantity = useStore((state) => state.incrementQuantity);
   const decrementQuantity = useStore((state) => state.decrementQuantity);
@@ -16,16 +19,16 @@ const ProductCard = () => {
 
   useEffect(() => {
     totalPrice();
-  }, []);
+  }, [products]);
 
-  console.log(products, { tp });
+  console.log({ loading });
 
-  return (
-    <div>
+  return products?.length > 0 ? (
+    <div className="my-5">
       {products.map((product: any) => (
         <div
           key={product.id}
-          className="flex flex-1 justify-between gap-2 p-5 border bg-white"
+          className="flex flex-1 justify-between items-center gap-2 p-5 my-2 border bg-white"
         >
           <div>
             <Image
@@ -36,7 +39,7 @@ const ProductCard = () => {
               height={10}
             />
           </div>
-          <div className="bg-red-500">
+          <div className="flex flex-col items-start ml-10  w-5/6 ">
             <p className="text-black">{product.title}</p>
             <p className="text-black/50">
               {" "}
@@ -44,32 +47,36 @@ const ProductCard = () => {
               {product.price}
             </p>
           </div>
-          <div>
+          <div className="flex flex-col justify-between gap-2">
             <div className="flex gap-5">
               <p className="text-black">Quantity</p>
-              <button
-                className="text-black"
-                onClick={() => {
-                  decrementQuantity(product.id);
-                  totalPrice();
-                }}
-              >
-                <MinusCircle />
-              </button>
-              <p className="text-purple-500">{product.quantity}</p>
-              <button
-                className="text-black "
-                onClick={() => {
-                  incrementQuantity(product.id);
-                  totalPrice();
-                }}
-              >
-                <PlusCircle />
-              </button>
+              {pathname === "/checkout" && (
+                <button
+                  className="text-black"
+                  onClick={() => {
+                    decrementQuantity(product.id);
+                    totalPrice();
+                  }}
+                >
+                  <MinusCircle />
+                </button>
+              )}
+              <p className="text-black">{product.quantity}</p>
+              {pathname === "/checkout" && (
+                <button
+                  className="text-black "
+                  onClick={() => {
+                    incrementQuantity(product.id);
+                    totalPrice();
+                  }}
+                >
+                  <PlusCircle />
+                </button>
+              )}
             </div>
 
-            <p className="bg-red-100 text-amber-900 ">
-              {product.quantity * product.price}
+            <p className=" text-black ">
+              Amount: {(product.quantity * product.price).toFixed(2)}
             </p>
           </div>
         </div>
@@ -83,6 +90,8 @@ const ProductCard = () => {
         Make Payment {tp}
       </p>
     </div>
+  ) : (
+    <div onClick={() => location.reload()}>No product</div>
   );
 };
 

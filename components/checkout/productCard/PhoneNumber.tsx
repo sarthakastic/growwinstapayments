@@ -1,10 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { PhoneNumberSchema } from "@/utils/validation";
+import { Pen, Phone, Trash } from "lucide-react";
+import { saveToLocalStorage } from "@/utils/saveDataToLocalStorage";
 
 type PhoneNumberFields = z.infer<typeof PhoneNumberSchema>;
 
@@ -16,16 +18,37 @@ const PhoneNumber = () => {
     formState: { errors, isSubmitting },
   } = useForm<PhoneNumberFields>({ resolver: zodResolver(PhoneNumberSchema) });
 
+  const [phone, setPhone] = useState<string>("");
+
   const onSubmit: SubmitHandler<PhoneNumberFields> = (data) => {
-    console.log(data, "phone Number");
+    saveToLocalStorage(data);
+    setPhone(data?.phone);
   };
+
+  const deletePhone = () => {
+    localStorage.removeItem("phone");
+    setPhone("");
+  };
+
+  useEffect(() => {
+    const storedPhone = localStorage.getItem("phone");
+    if (storedPhone) {
+      setPhone(storedPhone);
+    }
+  }, [phone]);
+
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="flex border p-1 gap-2 my-5"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <Phone />
         <input
-          className="w-full focus:outline-none text-red-500 "
+          className="w-full focus:outline-none text-black "
           {...register("phone")}
           maxLength={10}
+          defaultValue={phone}
           onInput={(e) => {
             const input = e.target as HTMLInputElement;
             let value = input.value.replace(/\D/g, ""); // Remove non-numeric characters
@@ -37,11 +60,18 @@ const PhoneNumber = () => {
           type="text" // Change the type to "text" to prevent native validation for number inputs
           placeholder="Enter Phone Number"
         />
-        {errors.phone && (
-          <div className="text-red-500">{errors.phone.message}</div>
+        {phone ? (
+          <div className="flex">
+            <Pen className="border p-1" />
+            <Trash className="border p-1" onClick={deletePhone} />
+          </div>
+        ) : (
+          <input type="submit" value={"Submit"} />
         )}
-        <input type="submit" value={"Apply"} />
       </form>
+      {errors.phone && (
+        <div className="text-red-500 p-2 ">{errors.phone.message}</div>
+      )}
     </>
   );
 };

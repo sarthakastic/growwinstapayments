@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import Address from "@/components/checkout/productCard/Address";
 import OrderSummary from "@/components/checkout/productCard/OrderSummary";
 import PhoneNumber from "@/components/checkout/productCard/PhoneNumber";
@@ -7,7 +8,8 @@ import React from "react";
 
 const Checkout = () => {
   return (
-    <div>
+    <div className=" px-2 md:mx-52 md:px-8  border my-10">
+      <Header heading="Checkout" previousUrl="/checkout" />
       <Address />
       <PhoneNumber />
       <ProductCard />
