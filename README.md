@@ -24,6 +24,7 @@ https://growwinstapayments.vercel.app
 ## Screenshots
 
 - Checkout Page :
+
   _Desktop View_
 
 <img width="1710" alt="Screenshot 2024-03-15 at 5 10 55 PM" src="https://github.com/sarthakastic/stumart/assets/72138026/9396c6c3-3d0f-4d41-83d7-9351ce1b8909">
@@ -33,16 +34,19 @@ _Mobile View_
 <img width="391" alt="Screenshot 2024-03-15 at 5 13 13 PM" src="https://github.com/sarthakastic/stumart/assets/72138026/076dbdf7-cb6b-4a21-b77f-0be65d026680">
 
 - Payment Page :
+
   _Desktop View_
-
-<img width="1710" alt="Screenshot 2024-03-15 at 5 11 50 PM" src="https://github.com/sarthakastic/stumart/assets/72138026/aa605abc-85bf-481e-8f1a-0ce74adb302a">
-<img width="391" alt="Screenshot 2024-03-15 at 5 14 00 PM" src="https://github.com/sarthakastic/stumart/assets/72138026/8b42e192-e8a4-46a9-af57-2158c112378c">
-
-_Mobile View_
 
 <img width="1710" alt="Screenshot 2024-03-15 at 5 11 44 PM" src="https://github.com/sarthakastic/stumart/assets/72138026/1056d562-33eb-4956-af37-2f74aae3b069">
 
+<img width="1710" alt="Screenshot 2024-03-15 at 5 11 50 PM" src="https://github.com/sarthakastic/stumart/assets/72138026/aa605abc-85bf-481e-8f1a-0ce74adb302a">
+
+_Mobile View_
+
+<img width="391" alt="Screenshot 2024-03-15 at 5 14 00 PM" src="https://github.com/sarthakastic/stumart/assets/72138026/8b42e192-e8a4-46a9-af57-2158c112378c">
+
 Order Status Page :
+
 _Desktop View_
 
 <img width="1710" alt="Screenshot 2024-03-15 at 5 12 01 PM" src="https://github.com/sarthakastic/stumart/assets/72138026/520e48b1-52df-4fa2-987b-5f12e561a16e">
