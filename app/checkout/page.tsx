@@ -1,8 +1,10 @@
+import Address from "@/components/UI/Address";
 import Header from "@/components/UI/Header";
-import Address from "@/components/checkout/productCard/Address";
+import PhoneNumber from "@/components/UI/PhoneNumber";
+import ProductCard from "@/components/UI/ProductCard";
+
 import OrderSummary from "@/components/checkout/productCard/OrderSummary";
-import PhoneNumber from "@/components/checkout/productCard/PhoneNumber";
-import ProductCard from "@/components/checkout/productCard/ProductCard";
+
 import PromoCode from "@/components/checkout/productCard/PromoCode";
 import React from "react";
 

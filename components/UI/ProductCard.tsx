@@ -4,7 +4,7 @@ import Button from "@/components/UI/Button";
 import useStore from "@/store/store";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 
 const ProductCard = () => {

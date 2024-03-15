@@ -8,7 +8,6 @@ import { AddressSchema } from "@/utils/validation";
 import { usePathname } from "next/navigation";
 import { saveToLocalStorage } from "@/utils/saveDataToLocalStorage";
 import { Pen, Trash } from "lucide-react";
-import Router from "next/router";
 import useStore from "@/store/store";
 
 type AddressFields = z.infer<typeof AddressSchema>;
