@@ -62,6 +62,15 @@ _Mobile View_
 <img width="1710" alt="Screenshot 2024-03-15 at 5 10 55 PM" src="https://github.com/sarthakastic/stumart/assets/72138026/faecea2c-6f93-4fb4-ac04-e5c71c16f125">
 <img width="1710" alt="Screenshot 2024-03-15 at 5 15 26 PM" src="https://github.com/sarthakastic/stumart/assets/72138026/ecab58bf-31d9-40dc-88f0-b61225a52dfe">
 
+## Features
+
+- Routeguards for each route
+- Validation for each input fields
+- Increase/Decrease quantity
+- Dynamic theme with light/dark mode
+- Handle multiple payment status
+- Responsive design
+
 ## Design Choices
 
 I adhered to industry-standard design principles by prioritizing reusable components and employing Tailwind CSS and Next Themes for dynamic themes. Embracing the DRY (Don't Repeat Yourself) principle, I minimized code duplication and enhanced maintainability. This approach ensures consistent design across the project while optimizing development efficiency and scalability.

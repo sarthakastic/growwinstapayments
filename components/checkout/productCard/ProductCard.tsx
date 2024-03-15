@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/Button";
+import Button from "@/components/UI/Button";
 import useStore from "@/store/store";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import Image from "next/image";

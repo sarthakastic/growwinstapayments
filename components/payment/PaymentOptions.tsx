@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import useStore from "@/store/store";
 import { Coins, Currency, WalletCards } from "lucide-react";
-import Button from "../Button";
+
 import CardDetails from "./CardDetails";
 import UpiDetails from "./UpiDetails";
 import PaymentStatus from "./PaymentStatus";
+import Button from "../UI/Button";
 
 const PaymentOptions = () => {
   const totalAmount = useStore((state) => state.totalPrice);

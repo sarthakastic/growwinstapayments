@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/components/UI/Header";
 import PaymentOptions from "@/components/payment/PaymentOptions";
 import React from "react";
 

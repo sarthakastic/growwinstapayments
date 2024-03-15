@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+
 import GetProductsWrapper from "@/wrappers/GetProductsWrapper";
 
 import { ThemeProvider } from "@/wrappers/ThemeProvider";
 import Routeguard from "@/wrappers/RouteGuardWrapper";
-import Toaster from "@/components/Toaster";
+
 import GetThemeWrapper from "@/wrappers/GetThemeWrapper";
-import { ModeToggle } from "@/components/Toggle";
+
+import Navbar from "@/components/UI/Navbar";
+import Toaster from "@/components/UI/Toaster";
+import { ModeToggle } from "@/components/UI/Toggle";
 
 const inter = Inter({ subsets: ["latin"] });
 

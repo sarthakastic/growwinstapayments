@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/components/UI/Header";
 import Address from "@/components/checkout/productCard/Address";
 import OrderSummary from "@/components/checkout/productCard/OrderSummary";
 import PhoneNumber from "@/components/checkout/productCard/PhoneNumber";
