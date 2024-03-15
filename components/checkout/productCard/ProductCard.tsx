@@ -26,7 +26,7 @@ const ProductCard = () => {
       {products.map((product: any) => (
         <div
           key={product.id}
-          className="flex flex-1 justify-between items-center gap-2 p-5 my-2 border border-primary bg-primaryBg rounded-lg"
+          className="flex xxs:flex-col xs:flex-row justify-between items-center gap-2 p-5 my-2 border border-primary bg-primaryBg rounded-lg"
         >
           <div>
             <Image
