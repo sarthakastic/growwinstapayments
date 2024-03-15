@@ -31,9 +31,26 @@ export const PhoneNumberSchema = z.object({
 });
 
 export const PaymentCardSchema = z.object({
-  cvv: z.string(),
-  cardNumber: z.string(),
-  date: z.string(),
+  cvv: z.string().length(3, { message: "CVV must contain 3 digits" }),
+  cardNumber: z
+    .string()
+    .length(12, { message: "Card Number must contain 12 digits" }),
+  month: z.string().refine(
+    (val) => {
+      const monthNum = parseInt(val, 10);
+      return monthNum >= 1 && monthNum <= 12;
+    },
+    { message: "Invalid Month" }
+  ),
+
+  year: z.string().refine(
+    (val) => {
+      const currentYear = new Date().getFullYear();
+      const yearNum = parseInt(val, 10);
+      return yearNum >= currentYear && yearNum <= currentYear + 10; // Validating for the next 10 years
+    },
+    { message: "Invalid Year" }
+  ),
 });
 
 export const UpiIdSchema = z.object({

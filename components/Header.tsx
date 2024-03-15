@@ -12,12 +12,12 @@ const Header = ({
   return (
     <div className="flex  p-2 border-b border-primary items-center ">
       <Link
-        className="text-primaryForeground w-fit border border-primaryForeground dark:border-primary dark:text-primary hover:bg-primary dark:hover:bg-primaryForeground flex items-center p-1  justify-between "
+        className=" w-fit border border-primary text-primary hover:bg-primaryForeground flex items-center p-1  justify-between "
         href={previousUrl}
       >
         <ArrowLeft />
       </Link>
-      <h4 className="w-full text-center font-bold text-primaryForeground dark:text-primary  text-xl">
+      <h4 className="w-full text-center font-bold  text-primary  text-xl">
         {heading}
       </h4>
     </div>

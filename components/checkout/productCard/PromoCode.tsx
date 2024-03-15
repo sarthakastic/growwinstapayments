@@ -24,13 +24,13 @@ const PromoCode = () => {
 
   return (
     <div className="my-5">
-      <h4>Promo Code</h4>
+      <h4 className="text-primary font-bold text-lg ">Promo Code</h4>
       <form
-        className="flex border border-primary p-1 gap-2 bg-foreground"
+        className="flex border border-primary p-1 gap-2 "
         onSubmit={handleSubmit(onSubmit)}
       >
         <input
-          className="w-full text-primary bg-foreground focus:outline-none"
+          className="w-full bg-transparent  my-1 focus:outline-none"
           {...register("promocode")}
           type="text"
           disabled={isPromoCode}

@@ -1,14 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
-import useStore from "@/store/store";
-import { Coins, WalletCards } from "lucide-react";
-import Button from "../Button";
+import React from "react";
+
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+
 import { PaymentCardSchema, UpiIdSchema } from "@/utils/validation";
+import { maskCardNumber } from "@/utils/cardDetailsHandler";
 
 type PaymentCardFields = z.infer<typeof PaymentCardSchema>;
 
@@ -16,92 +15,107 @@ const CardDetails = ({ setCardData }: { setCardData: any }) => {
   const {
     register,
     handleSubmit,
-    setError,
-    formState: { errors, isSubmitting },
+
+    formState: { errors },
   } = useForm<PaymentCardFields>({ resolver: zodResolver(PaymentCardSchema) });
 
-  function maskCardNumber(cardNumber: string) {
-    const firstPart = cardNumber.substring(0, 4);
-
-    const maskedPart = "********".substring(0, 8);
-
-    const maskedNumber = firstPart + maskedPart;
-
-    return maskedNumber;
-  }
-
   const onSubmit: SubmitHandler<PaymentCardFields> = async (data) => {
-    console.log(data);
     const response = await maskCardNumber(data?.cardNumber);
-    console.log(response);
+
     setCardData(response);
   };
 
   return (
-    <form
-      className="flex border p-1 gap-2 my-5 "
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <input
-        className="w-full focus:outline-none  "
-        {...register("cardNumber")}
-        maxLength={10}
-        onInput={(e) => {
-          const input = e.target as HTMLInputElement;
-          let value = input.value.replace(/\D/g, ""); // Remove non-numeric characters
-          if (value.length > 12) {
-            value = value.slice(0, 12); // Truncate the value to 10 digits
-          }
-          input.value = value; // Update the input value
-        }}
-        type="text" // Change the type to "text" to prevent native validation for number inputs
-        placeholder="Enter Card Number"
-      />
+    <>
+      <form
+        className="flex flex-col lg:flex-row border p-1 gap-2 my-5 "
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <input
+          className="w-full bg-transparent focus:outline-none  "
+          {...register("cardNumber")}
+          maxLength={12}
+          onInput={(e) => {
+            const input = e.target as HTMLInputElement;
+            let value = input.value.replace(/\D/g, "");
+            if (value.length > 12) {
+              value = value.slice(0, 12);
+            }
+            input.value = value;
+          }}
+          type="text"
+          placeholder="Enter Card Number"
+        />
+
+        <input
+          className="w-full bg-transparent focus:outline-none  "
+          {...register("cvv")}
+          maxLength={3}
+          onInput={(e) => {
+            const input = e.target as HTMLInputElement;
+            let value = input.value.replace(/\D/g, "");
+            if (value.length > 3) {
+              value = value.slice(0, 3);
+            }
+            input.value = value;
+          }}
+          type="text"
+          placeholder="Enter CVV Number"
+        />
+
+        <div className="flex">
+          <input
+            className="w-8 bg-transparent focus:outline-none  "
+            {...register("month")}
+            maxLength={2}
+            onInput={(e) => {
+              const input = e.target as HTMLInputElement;
+              let value = input.value.replace(/\D/g, "");
+              if (value.length > 2) {
+                value = value.slice(0, 2);
+              }
+              input.value = value;
+            }}
+            type="text"
+            placeholder="mm"
+          />
+
+          <span>/</span>
+          <input
+            className="w-10 bg-transparent focus:outline-none  "
+            {...register("year")}
+            maxLength={4}
+            onInput={(e) => {
+              const input = e.target as HTMLInputElement;
+              let value = input.value.replace(/\D/g, "");
+              if (value.length > 4) {
+                value = value.slice(0, 4);
+              }
+              input.value = value;
+            }}
+            type="text"
+            placeholder="yyyy"
+          />
+        </div>
+        <input
+          className="text-primary w-fit font-semibold hover:cursor-pointer"
+          type="submit"
+          value={"Save"}
+        />
+      </form>
       {errors.cardNumber && (
         <div className="text-red-500 p-2 ">{errors.cardNumber.message}</div>
       )}
-      <input
-        className="w-full focus:outline-none  "
-        {...register("cvv")}
-        maxLength={10}
-        onInput={(e) => {
-          const input = e.target as HTMLInputElement;
-          let value = input.value.replace(/\D/g, ""); // Remove non-numeric characters
-          if (value.length > 3) {
-            value = value.slice(0, 3); // Truncate the value to 10 digits
-          }
-          input.value = value; // Update the input value
-        }}
-        type="text" // Change the type to "text" to prevent native validation for number inputs
-        placeholder="Enter CVV Number"
-      />
       {errors.cvv && (
         <div className="text-red-500 p-2 ">{errors.cvv.message}</div>
       )}
-      <input
-        className="w-full focus:outline-none  "
-        {...register("date")}
-        maxLength={10}
-        onInput={(e) => {
-          const input = e.target as HTMLInputElement;
-          let value = input.value.replace(/\D/g, ""); // Remove non-numeric characters
-          if (value.length > 4) {
-            value = value.slice(0, 4); // Truncate the value to 10 digits
-          }
-          input.value = value; // Update the input value
-        }}
-        type="text" // Change the type to "text" to prevent native validation for number inputs
-        placeholder="mm/yy"
-      />
-      {errors.date && (
-        <div className="text-red-500 p-2 ">{errors.date.message}</div>
+      {errors.month && (
+        <div className="text-red-500 p-2 ">{errors.month.message}</div>
       )}
-      <input
-        className="text-primary font-semibold hover:cursor-pointer"
-        type="submit"
-        value={"Save"}
-      />
-    </form>
+      {errors.year && (
+        <div className="text-red-500 p-2 ">{errors.year.message}</div>
+      )}
+    </>
   );
 };
 

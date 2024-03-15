@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/Button";
 import useStore from "@/store/store";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import Image from "next/image";
@@ -9,7 +10,7 @@ import React, { useEffect } from "react";
 const ProductCard = () => {
   const router = useRouter();
   const pathname = usePathname();
-  console.log({ pathname });
+
   const products = useStore((state) => state.products);
   const loading = useStore((state) => state.loading);
   const tp = useStore((state) => state.totalPrice);
@@ -21,14 +22,13 @@ const ProductCard = () => {
     totalPrice();
   }, [products]);
 
-  console.log({ loading });
-
   return products?.length > 0 ? (
     <div className="my-5">
+      <h4 className="text-primary font-bold text-lg ">Product List</h4>
       {products.map((product: any) => (
         <div
           key={product.id}
-          className="flex flex-1 justify-between items-center gap-2 p-5 my-2 border bg-white"
+          className="flex flex-1 justify-between items-center gap-2 p-5 my-2 border border-primary "
         >
           <div>
             <Image
@@ -39,10 +39,10 @@ const ProductCard = () => {
               height={10}
             />
           </div>
-          <div className="lg:flex w-full justify-around gap-5 items-center ">
+          <div className="lg:flex w-full justify-between lg:px-5 gap-5 items-center ">
             <div className="flex flex-col items-start  ">
-              <p className="text-black">{product.title}</p>
-              <p className="text-black/50">
+              <p className="">{product.title}</p>
+              <p className="">
                 {" "}
                 <span className="font-semibold"> Price :</span>
                 {product.price}
@@ -50,10 +50,10 @@ const ProductCard = () => {
             </div>
             <div className="flex flex-col justify-between gap-2 my-5 lg:my-0 ">
               <div className="flex gap-5">
-                <p className="text-black">Quantity</p>
+                <p className="">Quantity</p>
                 {pathname === "/checkout" && (
                   <button
-                    className="text-black"
+                    className=""
                     onClick={() => {
                       decrementQuantity(product.id);
                       totalPrice();
@@ -62,10 +62,10 @@ const ProductCard = () => {
                     <MinusCircle />
                   </button>
                 )}
-                <p className="text-black">{product.quantity}</p>
+                <p className="">{product.quantity}</p>
                 {pathname === "/checkout" && (
                   <button
-                    className="text-black "
+                    className=""
                     onClick={() => {
                       incrementQuantity(product.id);
                       totalPrice();
@@ -76,7 +76,7 @@ const ProductCard = () => {
                 )}
               </div>
 
-              <p className=" text-black ">
+              <p className="  ">
                 Amount: {(product.quantity * product.price).toFixed(2)}
               </p>
             </div>
@@ -86,13 +86,10 @@ const ProductCard = () => {
     </div>
   ) : (
     <div className="w-full h-full p-10 text-primary font-bold bg-primaryForeground flex flex-col justify-center items-center ">
-      <p>Looks Like your cart is empty</p>
-      <button
-        className="border border-primary p-2"
-        onClick={() => location.reload()}
-      >
-        Start Shopping
-      </button>
+      <p className="my-5">Looks Like your cart is empty</p>
+      <div className="w-1/2">
+        <Button onClick={() => location.reload()} text="Start Shopping" />
+      </div>
     </div>
   );
 };

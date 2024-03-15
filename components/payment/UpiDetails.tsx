@@ -1,14 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
-import useStore from "@/store/store";
-import { Coins, WalletCards } from "lucide-react";
-import Button from "../Button";
+import React from "react";
+
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { PaymentCardSchema, UpiIdSchema } from "@/utils/validation";
+
+import { UpiIdSchema } from "@/utils/validation";
 
 type UpiFields = z.infer<typeof UpiIdSchema>;
 
@@ -16,8 +14,8 @@ const UpiDetails = ({ setCardData }: { setCardData: any }) => {
   const {
     register,
     handleSubmit,
-    setError,
-    formState: { errors, isSubmitting },
+
+    formState: { errors },
   } = useForm<UpiFields>({ resolver: zodResolver(UpiIdSchema) });
 
   const onSubmit: SubmitHandler<UpiFields> = async (data) => {
@@ -28,9 +26,9 @@ const UpiDetails = ({ setCardData }: { setCardData: any }) => {
     <>
       <form className="flex border p-1 " onSubmit={handleSubmit(onSubmit)}>
         <input
-          className="w-full focus:outline-none  "
+          className="w-full bg-transparent focus:outline-none  "
           {...register("upiId")}
-          type="text" // Change the type to "text" to prevent native validation for number inputs
+          type="text"
           placeholder="Enter UPI ID"
         />
         <input

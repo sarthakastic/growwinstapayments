@@ -7,6 +7,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { PhoneNumberSchema } from "@/utils/validation";
 import { Phone, Trash } from "lucide-react";
 import { saveToLocalStorage } from "@/utils/saveDataToLocalStorage";
+import { usePathname } from "next/navigation";
+import useStore from "@/store/store";
 
 type PhoneNumberFields = z.infer<typeof PhoneNumberSchema>;
 
@@ -18,14 +20,19 @@ const PhoneNumber = () => {
     formState: { errors, isSubmitting },
   } = useForm<PhoneNumberFields>({ resolver: zodResolver(PhoneNumberSchema) });
 
+  const showToaster = useStore((state) => state.showToaster);
+
   const [phone, setPhone] = useState<string>("");
+  const pathname = usePathname();
 
   const onSubmit: SubmitHandler<PhoneNumberFields> = (data) => {
+    showToaster("Phone Number added successfully", "success");
     saveToLocalStorage(data);
     setPhone(data?.phone);
   };
 
   const deletePhone = () => {
+    showToaster("Phone number deleted successfully", "success");
     localStorage.removeItem("phone");
     setPhone("");
   };
@@ -39,13 +46,14 @@ const PhoneNumber = () => {
 
   return (
     <>
+      <h4 className="text-primary font-bold text-lg ">Phone Details</h4>
       <form
         className="flex border p-1 gap-2 my-5 border-primary "
         onSubmit={handleSubmit(onSubmit)}
       >
         <Phone className="" />
         <input
-          className="w-full focus:outline-none  "
+          className="w-full bg-transparent   focus:outline-none"
           {...register("phone")}
           maxLength={10}
           defaultValue={phone}
@@ -61,15 +69,17 @@ const PhoneNumber = () => {
           placeholder="Enter Phone Number"
         />
         {phone ? (
-          <Trash
-            className="border p-1 text-red-500 border-red-500"
-            onClick={deletePhone}
-          />
+          pathname === "/checkout" && (
+            <Trash
+              className="border p-1 text-red-500 border-red-500"
+              onClick={deletePhone}
+            />
+          )
         ) : (
           <input
             className="text-primary font-semibold hover:cursor-pointer"
             type="submit"
-            value={"Save"}
+            value={"Add"}
           />
         )}
       </form>

@@ -21,30 +21,35 @@ const OrderSummary = () => {
   };
 
   return (
-    <div className="my-5 flex flex-col gap-2 border border-primary p-1 ">
-      <h4 className="font-bold">Order Summary</h4>
-      <div className="flex justify-between items-center ">
-        <p>Order Amount</p>
-        <p>{totalAmount.toFixed(2)}</p>
-      </div>
-      <div className="flex justify-between items-center ">
-        <p>Delivery Fee</p>
-        <p>100</p>
-      </div>
-      <div className="flex justify-between items-center ">
-        <p>Discount</p>
-        <p>100</p>
-      </div>
-      <div className="flex justify-between items-center ">
-        <div>
-          <p>Total</p>
+    <>
+      <h4 className="text-primary font-bold text-lg ">Order Summary</h4>
+
+      <div className="my-5 flex flex-col gap-2 border border-primary p-1 ">
+        <div className="flex justify-between items-center ">
+          <p>Order Amount</p>
           <p>{totalAmount.toFixed(2)}</p>
         </div>
-        <div>
-          <Button onClick={handleCheckout} text="Payment" />
+        <div className="flex justify-between items-center ">
+          <p>Delivery Fee</p>
+          <p>100</p>
+        </div>
+        <div className="flex justify-between items-center ">
+          <p>Discount</p>
+          <p>100</p>
+        </div>
+        <div className="flex justify-between items-center ">
+          <div>
+            <p>Total</p>
+            <p className="font-bold">{totalAmount.toFixed(2)}</p>
+          </div>
+          {totalAmount.toFixed(0) > 0 && (
+            <div>
+              <Button onClick={handleCheckout} text="Payment" />
+            </div>
+          )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

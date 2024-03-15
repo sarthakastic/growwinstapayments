@@ -18,6 +18,7 @@ interface ProductStore {
   products: Product[];
   loading: boolean;
   error: string | null;
+  modeOfPayment: string;
   getProducts: () => Promise<void>;
   incrementQuantity: (productId: number) => void;
   decrementQuantity: (productId: number) => void;
@@ -29,6 +30,7 @@ const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
   products: [],
   loading: true,
   error: null,
+  modeOfPayment: "",
   getProducts: async () => {
     try {
       set(() => ({ loading: true, error: null }));
@@ -84,6 +86,11 @@ const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
       totalPrice: products.reduce((total, product) => {
         return total + product.price * product.quantity;
       }, 0),
+    }));
+  },
+  setModeOfPayment: (modeOfPayment: string) => {
+    set(() => ({
+      modeOfPayment: modeOfPayment,
     }));
   },
 });
