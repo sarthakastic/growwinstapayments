@@ -34,7 +34,7 @@ const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
   getProducts: async () => {
     try {
       const response = await fetch(
-        "https://groww-intern-assignment.vercel.app/v1/api/order-details"
+        `${process.env.NEXT_PUBLIC_BACKEND_HOST_URL}/v1/api/order-details`
       );
 
       if (!response.ok) {

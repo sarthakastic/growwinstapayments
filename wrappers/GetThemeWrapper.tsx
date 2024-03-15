@@ -10,7 +10,8 @@ const GetThemeWrapper = ({ children }: { children: ReactNode }) => {
   async function fetchThemeData() {
     try {
       const response = await fetch(
-        "https://groww-intern-assignment.vercel.app/v1/api/merchant-metadata",
+        `${process.env.NEXT_PUBLIC_BACKEND_HOST_URL}/v1/api/merchant-metadata`,
+
         {
           cache: "no-cache",
         }
