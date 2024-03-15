@@ -61,7 +61,7 @@ const GetThemeWrapper = ({ children }: { children: ReactNode }) => {
                      --background: ${dynamicConfig?.background};
                      --foreground: ${dynamicConfig?.foreground};
                      --primary: ${dynamicConfig?.primary};
-                     --primarybg: color-mix(in hsl longer hue, ${dynamicConfig?.primary} 25%, transparent);
+                     --primarybg: color-mix(in hsl , ${dynamicConfig?.primary} 25%, transparent);
                      --primaryForeground: ${dynamicConfig?.primaryForeground};
                    }`,
         }}
