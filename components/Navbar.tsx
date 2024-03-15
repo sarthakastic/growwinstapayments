@@ -14,7 +14,7 @@ const Navbar = () => {
 
   useEffect(() => {
     getTheme();
-  }, []);
+  }, [getTheme]);
 
   return (
     <div className="flex justify-between top-0 p-2 bg-primary  fixed w-full items-center  ">

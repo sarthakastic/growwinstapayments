@@ -18,7 +18,7 @@ const ProductCard = () => {
 
   useEffect(() => {
     totalPrice();
-  }, [products]);
+  }, [products, totalPrice]);
 
   return products?.length > 0 ? (
     <div className="my-5 shadow-2xl bg-transparent rounded-lg">

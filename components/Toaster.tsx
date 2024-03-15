@@ -14,7 +14,7 @@ const Toaster = () => {
       setTimeout(() => {
         hideToaster();
       }, 5000);
-  }, [isToaster]);
+  }, [isToaster, hideToaster]);
 
   return (
     isToaster && (
