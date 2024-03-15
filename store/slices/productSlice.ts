@@ -45,11 +45,10 @@ const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
 
       const responseData = await response.json();
 
-      // Assuming the response structure matches the provided example
       set(() => ({
         products: responseData.products.map((product: Product) => ({
           ...product,
-          // Add initialQuantity to track the original quantity
+
           initialQuantity: product.quantity,
         })),
         paymentMethods: responseData.paymentMethods,

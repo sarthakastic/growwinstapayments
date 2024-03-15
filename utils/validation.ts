@@ -47,7 +47,7 @@ export const PaymentCardSchema = z.object({
     (val) => {
       const currentYear = new Date().getFullYear();
       const yearNum = parseInt(val, 10);
-      return yearNum >= currentYear && yearNum <= currentYear + 10; // Validating for the next 10 years
+      return yearNum >= currentYear && yearNum <= currentYear + 10;
     },
     { message: "Invalid Year" }
   ),

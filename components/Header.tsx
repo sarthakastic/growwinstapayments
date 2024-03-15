@@ -12,7 +12,7 @@ const Header = ({
   return (
     <div className="flex  p-2 border-b border-primary items-center ">
       <Link
-        className=" w-fit border border-primary text-primary hover:bg-primaryForeground flex items-center p-1  justify-between "
+        className="rounded-full w-fit border border-primary text-primary hover:bg-primaryForeground flex items-center p-1  justify-between "
         href={previousUrl}
       >
         <ArrowLeft />

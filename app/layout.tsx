@@ -15,6 +15,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Groww Instapayments",
   description: "Assignment for Groww Web Internship",
+  icons: {
+    icon: "./favicon.io",
+  },
 };
 
 export default function RootLayout({

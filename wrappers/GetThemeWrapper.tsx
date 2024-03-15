@@ -57,12 +57,13 @@ const GetThemeWrapper = ({ children }: { children: ReactNode }) => {
     <section>
       <style
         dangerouslySetInnerHTML={{
-          __html: ` :root {
-                             --background: ${dynamicConfig?.background};
-                             --foreground: ${dynamicConfig?.foreground};
-                             --primary: ${dynamicConfig?.primary};
-                             --primaryForeground: ${dynamicConfig?.primaryForeground}
-                           }`,
+          __html: `:root {
+                     --background: ${dynamicConfig?.background};
+                     --foreground: ${dynamicConfig?.foreground};
+                     --primary: ${dynamicConfig?.primary};
+                     --primarybg: color-mix(in hsl longer hue, ${dynamicConfig?.primary} 25%, transparent);
+                     --primaryForeground: ${dynamicConfig?.primaryForeground};
+                   }`,
         }}
       />
       {children}

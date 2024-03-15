@@ -42,7 +42,6 @@ const getThemeSlice: StateCreator<Merchant> = (set, get) => ({
 
       const responseData = await response.json();
 
-      // Assuming the response structure matches the provided example
       set(() => ({
         merchantLogo: responseData.merchantLogo,
         merchantName: responseData.merchantName,

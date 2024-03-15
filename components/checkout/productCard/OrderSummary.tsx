@@ -24,7 +24,7 @@ const OrderSummary = () => {
     <>
       <h4 className="text-primary font-bold text-lg ">Order Summary</h4>
 
-      <div className="my-5 flex flex-col gap-2 border border-primary p-1 ">
+      <div className="my-5 flex flex-col gap-2 border border-primary px-5 py-2 bg-primaryBg rounded-lg shadow-2xl">
         <div className="flex justify-between items-center ">
           <p>Order Amount</p>
           <p>{totalAmount.toFixed(2)}</p>

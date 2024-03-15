@@ -48,7 +48,7 @@ const PhoneNumber = () => {
     <>
       <h4 className="text-primary font-bold text-lg ">Phone Details</h4>
       <form
-        className="flex border p-1 gap-2 my-5 border-primary "
+        className="flex border px-5 py-2 gap-2 my-5 border-primary bg-primaryBg rounded-lg shadow-2xl"
         onSubmit={handleSubmit(onSubmit)}
       >
         <Phone className="" />
@@ -71,7 +71,7 @@ const PhoneNumber = () => {
         {phone ? (
           pathname === "/checkout" && (
             <Trash
-              className="border p-1 text-red-500 border-red-500"
+              className="border p-1 text-red-500 border-red-500 rounded-full hover:cursor-pointer hover:bg-red-200 "
               onClick={deletePhone}
             />
           )

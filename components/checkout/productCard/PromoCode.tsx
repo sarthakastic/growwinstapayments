@@ -23,10 +23,10 @@ const PromoCode = () => {
   };
 
   return (
-    <div className="my-5">
+    <div className="my-5 shadow-2xl ">
       <h4 className="text-primary font-bold text-lg ">Promo Code</h4>
       <form
-        className="flex border border-primary p-1 gap-2 "
+        className="flex border border-primary px-5 gap-2 bg-primaryBg rounded-lg "
         onSubmit={handleSubmit(onSubmit)}
       >
         <input

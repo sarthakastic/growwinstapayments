@@ -28,7 +28,7 @@ const CardDetails = ({ setCardData }: { setCardData: any }) => {
   return (
     <>
       <form
-        className="flex flex-col lg:flex-row border p-1 gap-2 my-5 "
+        className="flex flex-col lg:flex-row border p-1 gap-2 my-5  rounded-lg border-primary "
         onSubmit={handleSubmit(onSubmit)}
       >
         <input

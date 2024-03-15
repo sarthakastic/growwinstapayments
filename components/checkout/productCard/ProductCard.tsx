@@ -8,12 +8,10 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 const ProductCard = () => {
-  const router = useRouter();
   const pathname = usePathname();
 
   const products = useStore((state) => state.products);
-  const loading = useStore((state) => state.loading);
-  const tp = useStore((state) => state.totalPrice);
+
   const incrementQuantity = useStore((state) => state.incrementQuantity);
   const decrementQuantity = useStore((state) => state.decrementQuantity);
   const totalPrice = useStore((state) => state.getTotalPrice);
@@ -23,12 +21,12 @@ const ProductCard = () => {
   }, [products]);
 
   return products?.length > 0 ? (
-    <div className="my-5">
+    <div className="my-5 shadow-2xl bg-transparent rounded-lg">
       <h4 className="text-primary font-bold text-lg ">Product List</h4>
       {products.map((product: any) => (
         <div
           key={product.id}
-          className="flex flex-1 justify-between items-center gap-2 p-5 my-2 border border-primary "
+          className="flex flex-1 justify-between items-center gap-2 p-5 my-2 border border-primary bg-primaryBg rounded-lg"
         >
           <div>
             <Image

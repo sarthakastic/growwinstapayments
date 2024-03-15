@@ -23,7 +23,9 @@ const Navbar = () => {
         className="flex justify-between gap-5 items-center "
       >
         <Image src={logo} alt="image" width={20} height={20} />
-        <p className="text-primaryForeground font-bold text-xl ">{name}</p>
+        <p className="text-primaryForeground font-bold text-xl hover:cursor-pointer ">
+          {name}
+        </p>
       </div>
     </div>
   );

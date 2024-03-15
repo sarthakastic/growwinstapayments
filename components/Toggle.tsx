@@ -14,9 +14,9 @@ export function ModeToggle() {
   };
 
   return (
-    <button className="flex" type="button" onClick={handleTheme}>
-      <Sun className="border border-primary p-1 fixed bottom-10 right-5  h-[2rem] w-[2rem] rotate-0 scale-100 text-primary transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="border border-primary p-1  h-[2rem] fixed bottom-10 right-5   w-[2rem] rotate-90 text-primary scale-0 transition-all dark:rotate-0 dark:scale-100" />
+    <button className="flex  " type="button" onClick={handleTheme}>
+      <Sun className="border rounded-full border-primary p-1 fixed bottom-10 right-5  h-[2rem] w-[2rem] rotate-0 scale-100 text-primary transition-all dark:-rotate-90 dark:scale-0" />
+      <Moon className="border rounded-full border-primary p-1  h-[2rem] fixed bottom-10 right-5   w-[2rem] rotate-90 text-primary scale-0 transition-all dark:rotate-0 dark:scale-100" />
       <span className="sr-only">Toggle theme</span>
     </button>
   );

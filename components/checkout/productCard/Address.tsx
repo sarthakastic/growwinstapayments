@@ -18,8 +18,8 @@ const Address = () => {
   const {
     register,
     handleSubmit,
-    setError,
-    formState: { errors, isSubmitting },
+
+    formState: { errors },
   } = useForm<AddressFields>({ resolver: zodResolver(AddressSchema) });
 
   const showToaster = useStore((state) => state.showToaster);
@@ -82,7 +82,7 @@ const Address = () => {
     <>
       <h4 className="text-primary font-bold text-lg mt-5 ">Address Details</h4>
       <form
-        className=" border border-primary p-1 my-5"
+        className=" border border-primary px-5 py-2 rounded-lg my-5 bg-primaryBg shadow-2xl"
         onSubmit={handleSubmit(onSubmit)}
       >
         <input
@@ -96,7 +96,7 @@ const Address = () => {
 
             const value = input.value.toUpperCase();
 
-            input.value = value; // Update the input value
+            input.value = value;
           }}
         />
         {errors.addressLine1 && (
@@ -113,7 +113,7 @@ const Address = () => {
 
             const value = input.value.toUpperCase();
 
-            input.value = value; // Update the input value
+            input.value = value;
           }}
         />
         {errors.addressLine2 && (
@@ -175,7 +175,7 @@ const Address = () => {
         {city ? (
           pathname === "/checkout" && (
             <Trash
-              className="border p-1 text-red-500 border-red-500"
+              className="border p-1 text-red-500 border-red-500 rounded-full hover:cursor-pointer hover:bg-red-200 "
               onClick={deleteAddress}
             />
           )

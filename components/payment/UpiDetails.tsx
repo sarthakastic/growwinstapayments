@@ -24,9 +24,12 @@ const UpiDetails = ({ setCardData }: { setCardData: any }) => {
 
   return (
     <>
-      <form className="flex border p-1 " onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="flex border border-primary rounded-lg p-1 "
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <input
-          className="w-full bg-transparent focus:outline-none  "
+          className="w-full bg-transparent   focus:outline-none"
           {...register("upiId")}
           type="text"
           placeholder="Enter UPI ID"
