@@ -3,18 +3,13 @@
 import useStore from "@/store/store";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React from "react";
 
 const Navbar = () => {
   const router = useRouter();
 
   const name = useStore((state) => state.merchantName);
   const logo = useStore((state) => state.merchantLogo);
-  const getTheme = useStore((state) => state.getTheme);
-
-  useEffect(() => {
-    getTheme();
-  }, [getTheme]);
 
   return (
     <div className="flex justify-between top-0 p-2 bg-primary  fixed w-full items-center  ">

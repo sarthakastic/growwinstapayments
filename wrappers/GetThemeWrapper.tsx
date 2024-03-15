@@ -1,9 +1,11 @@
 "use client";
 
+import useStore from "@/store/store";
 import { ReactNode, useEffect, useState } from "react";
 
 const GetThemeWrapper = ({ children }: { children: ReactNode }) => {
   const [dynamicConfig, setDynamicConfig] = useState<any>();
+  const setLabel = useStore((state) => state.setLabel);
 
   async function fetchThemeData() {
     try {
@@ -17,6 +19,8 @@ const GetThemeWrapper = ({ children }: { children: ReactNode }) => {
         throw new Error("Failed to fetch theme data");
       }
       const data: any = await response.json();
+
+      setLabel(data?.merchantLogo, data?.merchantName);
       return data.theme;
     } catch (error) {
       console.error("Error fetching theme data:", error);

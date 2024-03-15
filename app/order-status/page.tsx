@@ -8,7 +8,7 @@ import React from "react";
 
 const OrderStatus = async () => {
   return (
-    <div className=" px-2 mx-2 md:mx-52 md:px-8  border border-primary my-20">
+    <div className=" px-2 mx-2 md:mx-40 md:px-8  border border-primary my-20">
       <Header previousUrl="/payment" heading="Order Status" />
       <ProductCard />
       <PaymentInfo />

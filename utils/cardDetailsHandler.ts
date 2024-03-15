@@ -1,9 +1,14 @@
 export function maskCardNumber(cardNumber: string) {
-  const firstPart = cardNumber.substring(0, 4);
+  const visibleDigits = 4;
+  const totalDigits = cardNumber.length;
 
-  const maskedPart = "********".substring(0, 8);
+  if (totalDigits <= visibleDigits) {
+    return cardNumber;
+  }
 
-  const maskedNumber = firstPart + maskedPart;
+  const maskedPart = "*".repeat(totalDigits - visibleDigits);
 
-  return maskedNumber;
+  const visiblePart = cardNumber.substring(totalDigits - visibleDigits);
+
+  return maskedPart + visiblePart;
 }

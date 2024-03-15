@@ -6,12 +6,9 @@ import { Coins, Currency, WalletCards } from "lucide-react";
 import Button from "../Button";
 import CardDetails from "./CardDetails";
 import UpiDetails from "./UpiDetails";
-import Otp from "./Otp";
-import { useRouter } from "next/navigation";
+import PaymentStatus from "./PaymentStatus";
 
 const PaymentOptions = () => {
-  const router = useRouter();
-
   const totalAmount = useStore((state) => state.totalPrice);
   const paymentMethods = useStore((state) => state.paymentMethods);
   const setModeOfPayment = useStore((state) => state.setModeOfPayment);
@@ -36,7 +33,7 @@ const PaymentOptions = () => {
     if (!selectedPaymentMethod) {
       showToaster("Choose a payment method", "error");
     } else if (selectedPaymentMethod && (cardData || upiData)) {
-      router.push("/order-status");
+      setShowOtp(true);
     } else {
       showToaster("Enter  payment details", "error");
     }
@@ -46,7 +43,7 @@ const PaymentOptions = () => {
     <>
       {showOtp && (
         <div className=" ">
-          <Otp />
+          <PaymentStatus />
         </div>
       )}
       <div className="flex flex-col justify-between  ">
@@ -57,7 +54,7 @@ const PaymentOptions = () => {
           {paymentMethods?.map((data: string, index: number) => (
             <div
               key={index}
-              className="flex items-center gap-10 border border-primary my-10 min-h-28 max-h-fit  px-5 rounded-lg shadow-2xl bg-primaryBg lg:px-20"
+              className="flex items-center xxs:gap-2 xs:gap-5 sm:gap-10 border border-primary my-10 min-h-28 max-h-fit  px-5 rounded-lg shadow-2xl bg-primaryBg lg:px-20"
             >
               <input
                 type="radio"

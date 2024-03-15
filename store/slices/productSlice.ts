@@ -16,7 +16,7 @@ interface ProductStore {
   totalPrice: number;
   paymentMethods: PaymentMethods[];
   products: Product[];
-  loading: boolean;
+
   error: string | null;
   modeOfPayment: string;
   getProducts: () => Promise<void>;
@@ -28,13 +28,11 @@ const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
   totalPrice: 0,
   paymentMethods: [],
   products: [],
-  loading: true,
+
   error: null,
   modeOfPayment: "",
   getProducts: async () => {
     try {
-      set(() => ({ loading: true, error: null }));
-
       const response = await fetch(
         "https://groww-intern-assignment.vercel.app/v1/api/order-details"
       );
@@ -52,12 +50,11 @@ const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
           initialQuantity: product.quantity,
         })),
         paymentMethods: responseData.paymentMethods,
-        loading: false,
       }));
     } catch (error) {
       console.error("Error fetching data:", error);
 
-      set(() => ({ error: "Error fetching data", loading: false }));
+      set(() => ({ error: "Error fetching data" }));
     }
   },
   incrementQuantity: (productId: number) => {
