@@ -53,8 +53,10 @@ export const PaymentCardSchema = z.object({
   ),
 });
 
+const upiRegex = new RegExp("^[a-zA-Z0-9.-_]{2,49}@[a-zA-Z._]{2,49}$");
+
 export const UpiIdSchema = z.object({
-  upiId: z.string().refine((val) => val.includes("@"), {
+  upiId: z.string().regex(upiRegex, {
     message: "Invalid UPI ID",
   }),
 });

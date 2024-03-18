@@ -10,6 +10,15 @@ const Navbar = () => {
 
   const name = useStore((state) => state.merchantName);
   const logo = useStore((state) => state.merchantLogo);
+  const themeLoading = useStore((state) => state.themeLoading);
+
+  if (themeLoading) {
+    return (
+      <div className="flex justify-between top-0 p-2 bg-amber-50  dark:bg-slate-500  fixed w-full items-center  ">
+        <div className="h-5 bg-amber-200 w-28 dark:bg-gray-700 max-w-[360px]  animate-pulse "></div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex justify-between top-0 p-2 bg-primary  fixed w-full items-center  ">

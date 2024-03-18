@@ -16,7 +16,7 @@ interface ProductStore {
   totalPrice: number;
   paymentMethods: PaymentMethods[];
   products: Product[];
-
+  productLoading: boolean;
   error: string | null;
   modeOfPayment: string;
   getProducts: () => Promise<void>;
@@ -28,7 +28,7 @@ const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
   totalPrice: 0,
   paymentMethods: [],
   products: [],
-
+  productLoading: true,
   error: null,
   modeOfPayment: "",
   getProducts: async () => {
@@ -36,6 +36,10 @@ const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_HOST_URL}/v1/api/order-details`
       );
+
+      set(() => ({
+        productLoading: false,
+      }));
 
       if (!response.ok) {
         throw new Error("Failed to fetch data");
@@ -52,6 +56,9 @@ const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
         paymentMethods: responseData.paymentMethods,
       }));
     } catch (error) {
+      set(() => ({
+        productLoading: false,
+      }));
       console.error("Error fetching data:", error);
 
       set(() => ({ error: "Error fetching data" }));

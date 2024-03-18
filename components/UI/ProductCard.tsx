@@ -15,10 +15,17 @@ const ProductCard = () => {
   const incrementQuantity = useStore((state) => state.incrementQuantity);
   const decrementQuantity = useStore((state) => state.decrementQuantity);
   const totalPrice = useStore((state) => state.getTotalPrice);
+  const productLoading = useStore((state) => state.productLoading);
 
   useEffect(() => {
     totalPrice();
   }, [products, totalPrice]);
+
+  if (productLoading) {
+    return (
+      <div className="h-80 bg-amber-50 w-full dark:bg-gray-700   animate-pulse "></div>
+    );
+  }
 
   return products?.length > 0 ? (
     <div className="my-5 shadow-2xl bg-transparent rounded-lg">

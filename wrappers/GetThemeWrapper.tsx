@@ -6,6 +6,7 @@ import { ReactNode, useEffect, useState } from "react";
 const GetThemeWrapper = ({ children }: { children: ReactNode }) => {
   const [dynamicConfig, setDynamicConfig] = useState<any>();
   const setLabel = useStore((state) => state.setLabel);
+  const setThemeLoading = useStore((state) => state.setThemeLoading);
 
   async function fetchThemeData() {
     try {
@@ -16,6 +17,7 @@ const GetThemeWrapper = ({ children }: { children: ReactNode }) => {
           cache: "no-cache",
         }
       );
+      setThemeLoading();
       if (!response.ok) {
         throw new Error("Failed to fetch theme data");
       }
@@ -24,6 +26,7 @@ const GetThemeWrapper = ({ children }: { children: ReactNode }) => {
       setLabel(data?.merchantLogo, data?.merchantName);
       return data.theme;
     } catch (error) {
+      setThemeLoading();
       console.error("Error fetching theme data:", error);
       return null;
     }
