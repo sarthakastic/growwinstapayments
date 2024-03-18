@@ -11,11 +11,7 @@ const GetThemeWrapper = ({ children }: { children: ReactNode }) => {
   async function fetchThemeData() {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_HOST_URL}/v1/api/merchant-metadata`,
-
-        {
-          cache: "no-cache",
-        }
+        `${process.env.NEXT_PUBLIC_BACKEND_HOST_URL}/v1/api/merchant-metadata`
       );
       setThemeLoading();
       if (!response.ok) {
