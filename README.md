@@ -65,6 +65,7 @@ _Mobile View_
 ## Features
 
 - Routeguards for each route
+- Caching of themes and data
 - Validation for each input fields
 - Increase/Decrease quantity
 - Dynamic theme with light/dark mode
