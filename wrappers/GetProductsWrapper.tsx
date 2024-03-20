@@ -1,21 +1,21 @@
 "use client";
 
 import React, { ReactNode, useEffect } from "react";
-import useStore from "@/store/store";
+import useProductStore from "@/store/slices/productSlice";
 
 const GetProductsWrapper = ({ children }: { children: ReactNode }) => {
-  const getData = useStore((state) => state.getProducts);
+  const { getProducts, products } = useProductStore();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await getData();
+        await getProducts();
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchData();
+    products.length === 0 && fetchData();
   }, []);
 
   return <div>{children}</div>;

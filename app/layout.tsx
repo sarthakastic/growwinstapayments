@@ -12,6 +12,8 @@ import GetThemeWrapper from "@/wrappers/GetThemeWrapper";
 import Navbar from "@/components/UI/Navbar";
 import Toaster from "@/components/UI/Toaster";
 import { ModeToggle } from "@/components/UI/Toggle";
+import Hydration from "@/store/slices/Hydration";
+import Reload from "@/components/UI/Reload";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,7 +46,9 @@ export default function RootLayout({
               <GetThemeWrapper>
                 <Navbar />
                 <Toaster />
+                <Reload />
                 <ModeToggle />
+                <Hydration />
                 {children}
               </GetThemeWrapper>
             </GetProductsWrapper>

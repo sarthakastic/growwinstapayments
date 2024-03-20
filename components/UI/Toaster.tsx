@@ -1,13 +1,10 @@
 "use client";
 
-import useStore from "@/store/store";
+import useToasterStore from "@/store/slices/toasterSlice";
 import React, { useEffect } from "react";
 
 const Toaster = () => {
-  const isToaster = useStore((state) => state.isToaster);
-  const type = useStore((state) => state.type);
-  const hideToaster = useStore((state) => state.hideToaster);
-  const toasterMessage = useStore((state) => state.toasterMessage);
+  const { isToaster, toasterMessage, type, hideToaster } = useToasterStore();
 
   useEffect(() => {
     isToaster &&

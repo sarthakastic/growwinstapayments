@@ -7,8 +7,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { AddressSchema } from "@/utils/validation";
 import { usePathname } from "next/navigation";
 import { saveToLocalStorage } from "@/utils/saveDataToLocalStorage";
-import { Pen, Trash } from "lucide-react";
-import useStore from "@/store/store";
+import { Trash } from "lucide-react";
+import { getLocalStorage } from "@/utils/localStorageHandler";
+import useToasterStore from "@/store/slices/toasterSlice";
 
 type AddressFields = z.infer<typeof AddressSchema>;
 
@@ -21,7 +22,7 @@ const Address = () => {
     formState: { errors },
   } = useForm<AddressFields>({ resolver: zodResolver(AddressSchema) });
 
-  const showToaster = useStore((state) => state.showToaster);
+  const { showToaster } = useToasterStore();
 
   const onSubmit: SubmitHandler<AddressFields> = (data) => {
     showToaster("Address added successfully", "success");
@@ -36,11 +37,11 @@ const Address = () => {
   const [pincode, setPincode] = useState<string>("");
 
   useEffect(() => {
-    const storedHouseNumber = localStorage.getItem("addressLine1");
-    const storedLandmark = localStorage.getItem("addressLine2");
-    const storedCity = localStorage.getItem("city");
-    const storedState = localStorage.getItem("state");
-    const storedPincode = localStorage.getItem("pincode");
+    const storedHouseNumber = getLocalStorage("addressLine1");
+    const storedLandmark = getLocalStorage("addressLine2");
+    const storedCity = getLocalStorage("city");
+    const storedState = getLocalStorage("state");
+    const storedPincode = getLocalStorage("pincode");
 
     if (storedHouseNumber) {
       setHouseNumber(storedHouseNumber);
@@ -77,116 +78,125 @@ const Address = () => {
     setCity("");
   };
 
+  const [hydrated, setHydrated] = useState<boolean>(false);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
   return (
-    <>
-      <h4 className="text-primary font-bold text-lg mt-5 ">Address Details</h4>
-      <form
-        className=" border border-primary px-5 py-2 rounded-lg my-5 bg-primaryBg shadow-2xl"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <input
-          className="w-full bg-transparent  my-1 focus:outline-none"
-          {...register("addressLine1")}
-          defaultValue={houseNumber}
-          type="text"
-          placeholder="Enter House No./Street Number"
-          onInput={(e) => {
-            const input = e.target as HTMLInputElement;
-
-            const value = input.value.toUpperCase();
-
-            input.value = value;
-          }}
-        />
-        {errors.addressLine1 && (
-          <div className="text-red-500">{errors.addressLine1.message}</div>
-        )}
-        <input
-          className="w-full bg-transparent  my-1 focus:outline-none"
-          {...register("addressLine2")}
-          defaultValue={landmark}
-          type="text"
-          placeholder="Enter Locality"
-          onInput={(e) => {
-            const input = e.target as HTMLInputElement;
-
-            const value = input.value.toUpperCase();
-
-            input.value = value;
-          }}
-        />
-        {errors.addressLine2 && (
-          <div className="text-red-500">{errors.addressLine2.message}</div>
-        )}
-        <input
-          className="w-full bg-transparent  my-1 focus:outline-none"
-          {...register("city")}
-          defaultValue={city}
-          type="text"
-          placeholder="Enter City"
-          onInput={(e) => {
-            const input = e.target as HTMLInputElement;
-
-            const value = input.value.toUpperCase();
-
-            input.value = value; // Update the input value
-          }}
-        />
-        {errors.city && (
-          <div className="text-red-500">{errors.city.message}</div>
-        )}
-        <input
-          className="w-full bg-transparent  my-1 focus:outline-none"
-          {...register("state")}
-          defaultValue={state}
-          type="text"
-          placeholder="Enter State"
-          onInput={(e) => {
-            const input = e.target as HTMLInputElement;
-
-            const value = input.value.toUpperCase();
-
-            input.value = value; // Update the input value
-          }}
-        />
-        {errors.state && (
-          <div className="text-red-500">{errors.state.message}</div>
-        )}
-        <input
-          className="w-full bg-transparent  my-1 focus:outline-none"
-          {...register("pincode")}
-          defaultValue={pincode}
-          maxLength={6}
-          onInput={(e) => {
-            const input = e.target as HTMLInputElement;
-            let value = input.value.replace(/\D/g, ""); // Remove non-numeric characters
-            if (value.length > 6) {
-              value = value.slice(0, 6); // Truncate the value to 10 digits
-            }
-            input.value = value; // Update the input value
-          }}
-          type="text" // Change the type to "text" to prevent native validation for number inputs
-          placeholder="Enter Pincode"
-        />
-        {errors.pincode && (
-          <div className="text-red-500">{errors.pincode.message}</div>
-        )}
-        {city ? (
-          pathname === "/checkout" && (
-            <Trash
-              className="border p-1 text-red-500 border-red-500 rounded-full hover:cursor-pointer hover:bg-red-200 "
-              onClick={deleteAddress}
-            />
-          )
-        ) : (
+    hydrated && (
+      <>
+        <h4 className="text-primary font-bold text-lg mt-5 ">
+          Address Details
+        </h4>
+        <form
+          className=" border border-primary px-5 py-2 rounded-lg my-5 bg-primaryBg shadow-2xl"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <input
-            className="text-primary font-semibold hover:cursor-pointer"
-            type="submit"
-            value={"Add"}
+            className="w-full bg-transparent  my-1 focus:outline-none"
+            {...register("addressLine1")}
+            defaultValue={houseNumber}
+            type="text"
+            placeholder="Enter House No./Street Number"
+            onInput={(e) => {
+              const input = e.target as HTMLInputElement;
+
+              const value = input.value.toUpperCase();
+
+              input.value = value;
+            }}
           />
-        )}
-      </form>
-    </>
+          {errors.addressLine1 && (
+            <div className="text-red-500">{errors.addressLine1.message}</div>
+          )}
+          <input
+            className="w-full bg-transparent  my-1 focus:outline-none"
+            {...register("addressLine2")}
+            defaultValue={landmark}
+            type="text"
+            placeholder="Enter Locality"
+            onInput={(e) => {
+              const input = e.target as HTMLInputElement;
+
+              const value = input.value.toUpperCase();
+
+              input.value = value;
+            }}
+          />
+          {errors.addressLine2 && (
+            <div className="text-red-500">{errors.addressLine2.message}</div>
+          )}
+          <input
+            className="w-full bg-transparent  my-1 focus:outline-none"
+            {...register("city")}
+            defaultValue={city}
+            type="text"
+            placeholder="Enter City"
+            onInput={(e) => {
+              const input = e.target as HTMLInputElement;
+
+              const value = input.value.toUpperCase();
+
+              input.value = value; // Update the input value
+            }}
+          />
+          {errors.city && (
+            <div className="text-red-500">{errors.city.message}</div>
+          )}
+          <input
+            className="w-full bg-transparent  my-1 focus:outline-none"
+            {...register("state")}
+            defaultValue={state}
+            type="text"
+            placeholder="Enter State"
+            onInput={(e) => {
+              const input = e.target as HTMLInputElement;
+
+              const value = input.value.toUpperCase();
+
+              input.value = value; // Update the input value
+            }}
+          />
+          {errors.state && (
+            <div className="text-red-500">{errors.state.message}</div>
+          )}
+          <input
+            className="w-full bg-transparent  my-1 focus:outline-none"
+            {...register("pincode")}
+            defaultValue={pincode}
+            maxLength={6}
+            onInput={(e) => {
+              const input = e.target as HTMLInputElement;
+              let value = input.value.replace(/\D/g, ""); // Remove non-numeric characters
+              if (value.length > 6) {
+                value = value.slice(0, 6); // Truncate the value to 10 digits
+              }
+              input.value = value; // Update the input value
+            }}
+            type="text" // Change the type to "text" to prevent native validation for number inputs
+            placeholder="Enter Pincode"
+          />
+          {errors.pincode && (
+            <div className="text-red-500">{errors.pincode.message}</div>
+          )}
+          {city ? (
+            pathname === "/checkout" && (
+              <Trash
+                className="border p-1 text-red-500 border-red-500 rounded-full hover:cursor-pointer hover:bg-red-200 "
+                onClick={deleteAddress}
+              />
+            )
+          ) : (
+            <input
+              className="text-primary font-semibold hover:cursor-pointer"
+              type="submit"
+              value={"Add"}
+            />
+          )}
+        </form>
+      </>
+    )
   );
 };
 

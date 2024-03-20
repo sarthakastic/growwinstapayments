@@ -1,12 +1,6 @@
-import { StateCreator } from "zustand";
+import { create } from "zustand";
 
-interface ToasterStore {
-  isToaster: boolean;
-  toasterMessage: string;
-  type: "success" | "error";
-}
-
-const getToasterSlice: StateCreator<ToasterStore> = (set, get) => ({
+const getToasterSlice = (set: any) => ({
   isToaster: false,
   toasterMessage: "",
   type: "error",
@@ -25,4 +19,6 @@ const getToasterSlice: StateCreator<ToasterStore> = (set, get) => ({
   },
 });
 
-export default getToasterSlice;
+const useToasterStore = create(getToasterSlice);
+
+export default useToasterStore;

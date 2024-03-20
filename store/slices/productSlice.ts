@@ -1,4 +1,5 @@
-import { StateCreator } from "zustand";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface Product {
   id: number;
@@ -8,38 +9,18 @@ interface Product {
   quantity: number;
 }
 
-interface PaymentMethods {
-  paymentMethods: string;
-}
-
-interface ProductStore {
-  totalPrice: number;
-  paymentMethods: PaymentMethods[];
-  products: Product[];
-  productLoading: boolean;
-  error: string | null;
-  modeOfPayment: string;
-  getProducts: () => Promise<void>;
-  incrementQuantity: (productId: number) => void;
-  decrementQuantity: (productId: number) => void;
-}
-
-const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
+const getProductSlice = (set: any, get: any) => ({
   totalPrice: 0,
   paymentMethods: [],
   products: [],
-  productLoading: true,
   error: null,
   modeOfPayment: "",
+
   getProducts: async () => {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_HOST_URL}/v1/api/order-details`
       );
-
-      set(() => ({
-        productLoading: false,
-      }));
 
       if (!response.ok) {
         throw new Error("Failed to fetch data");
@@ -65,8 +46,8 @@ const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
     }
   },
   incrementQuantity: (productId: number) => {
-    set((state) => ({
-      products: state.products.map((product) =>
+    set((state: any) => ({
+      products: state.products.map((product: Product) =>
         product.id === productId
           ? { ...product, quantity: product.quantity + 1 }
           : product
@@ -74,8 +55,8 @@ const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
     }));
   },
   decrementQuantity: (productId: number) => {
-    set((state) => ({
-      products: state.products.map((product) =>
+    set((state: any) => ({
+      products: state.products.map((product: Product) =>
         product.id === productId && product.quantity > 0
           ? { ...product, quantity: product.quantity - 1 }
           : product
@@ -86,7 +67,7 @@ const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
     const { products } = get();
 
     set(() => ({
-      totalPrice: products.reduce((total, product) => {
+      totalPrice: products.reduce((total: number, product: Product) => {
         return total + product.price * product.quantity;
       }, 0),
     }));
@@ -98,4 +79,10 @@ const getProductSlice: StateCreator<ProductStore> = (set, get) => ({
   },
 });
 
-export default getProductSlice;
+const useProductStore = create(
+  persist(getProductSlice, {
+    name: "growwproduct",
+  })
+);
+
+export default useProductStore;

@@ -1,44 +1,19 @@
 "use client";
 
-import useStore from "@/store/store";
-import { ReactNode, useEffect, useState } from "react";
+import useThemeStore from "@/store/slices/themeSlice";
+import { ReactNode, useEffect } from "react";
 
 const GetThemeWrapper = ({ children }: { children: ReactNode }) => {
-  const [dynamicConfig, setDynamicConfig] = useState<any>();
-  const setLabel = useStore((state) => state.setLabel);
-  const setThemeLoading = useStore((state) => state.setThemeLoading);
-
-  async function fetchThemeData() {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_HOST_URL}/v1/api/merchant-metadata`
-      );
-      setThemeLoading();
-      if (!response.ok) {
-        throw new Error("Failed to fetch theme data");
-      }
-      const data: any = await response.json();
-
-      setLabel(data?.merchantLogo, data?.merchantName);
-      return data.theme;
-    } catch (error) {
-      setThemeLoading();
-      console.error("Error fetching theme data:", error);
-      return null;
-    }
-  }
+  const { merchantName, themeConfig, fetchThemeData } = useThemeStore();
 
   async function getDynamicTailwindConfig() {
-    const theme = await fetchThemeData();
-    if (!theme) {
-      throw new Error("Failed to fetch or parse theme data");
-    }
+    await fetchThemeData();
 
     let dynamicTheme = {
-      background: theme["--background"],
-      foreground: theme["--foreground"],
-      primary: theme["--primary"],
-      primaryForeground: theme["--primary-foreground"],
+      background: themeConfig["--background"],
+      foreground: themeConfig["--foreground"],
+      primary: themeConfig["--primary"],
+      primaryForeground: themeConfig["--primary-foreground"],
     };
 
     return dynamicTheme;
@@ -47,26 +22,25 @@ const GetThemeWrapper = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dynamicConfigData = await getDynamicTailwindConfig();
-        setDynamicConfig(dynamicConfigData);
+        await getDynamicTailwindConfig();
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchData();
-  }, []);
+    merchantName.length === 0 && fetchData();
+  }, [themeConfig]);
 
   return (
     <section>
       <style
         dangerouslySetInnerHTML={{
           __html: `:root {
-                     --background: ${dynamicConfig?.background};
-                     --foreground: ${dynamicConfig?.foreground};
-                     --primary: ${dynamicConfig?.primary};
-                     --primarybg: color-mix(in hsl , ${dynamicConfig?.primary} 25%, transparent);
-                     --primaryForeground: ${dynamicConfig?.primaryForeground};
+                     --background: ${themeConfig?.["--background"]};
+                     --foreground: ${themeConfig?.["--foreground"]};
+                     --primary: ${themeConfig?.["--primary"]};
+                     --primarybg: color-mix(in hsl , ${themeConfig?.["--primary"]} 25%, transparent);
+                     --primaryForeground: ${themeConfig?.["--primary-foreground"]};
                    }`,
         }}
       />
