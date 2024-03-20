@@ -25,7 +25,7 @@ const UpiDetails = ({ setCardData }: { setCardData: any }) => {
   return (
     <>
       <form
-        className="flex border border-primary rounded-lg p-1 "
+        className=" border border-primary rounded-lg p-1 "
         onSubmit={handleSubmit(onSubmit)}
       >
         <input

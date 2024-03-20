@@ -45,6 +45,16 @@ const PaymentOptions = () => {
     setHydrated(true);
   }, []);
 
+  if (!hydrated)
+    return (
+      <>
+        <h4 className="text-primary font-bold text-lg mt-5 ">
+          Choose Payment Method
+        </h4>
+        <div className="h-80 w-full bg-slate-700 animate-pulse rounded-lg my-5 "></div>
+      </>
+    );
+
   return (
     hydrated && (
       <>

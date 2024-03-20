@@ -29,10 +29,9 @@ const OrderSummary = () => {
   }, []);
 
   return (
-    hydrated && (
-      <>
-        <h4 className="text-primary font-bold text-lg ">Order Summary</h4>
-
+    <>
+      <h4 className="text-primary font-bold text-lg ">Order Summary</h4>
+      {hydrated ? (
         <div className="my-5 flex flex-col gap-2 border border-primary px-5 py-2 bg-primaryBg rounded-lg shadow-2xl">
           <div className="flex justify-between items-center ">
             <p>Order Amount</p>
@@ -58,8 +57,10 @@ const OrderSummary = () => {
             )}
           </div>
         </div>
-      </>
-    )
+      ) : (
+        <div className="h-80 w-full bg-slate-700 animate-pulse rounded-lg my-5 "></div>
+      )}
+    </>
   );
 };
 
